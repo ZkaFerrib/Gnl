@@ -3,31 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   pruebas.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaizkafernandezribeiro <gaizkafernandez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 13:51:55 by gafernan          #+#    #+#             */
-/*   Updated: 2022/10/26 14:46:20 by gafernan         ###   ########.fr       */
+/*   Updated: 2022/10/29 13:22:48 by gaizkaferna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
+#include "get_next_line.h"
 
-int	main(void)
+char    *get_next_line(int fd)
 {
-	int		fd;
-	char	buf[10];
-	size_t	nr_bytes;
+	char	buf[90];
+	ssize_t	nr_bytes;
 
-	fd = open("/Users/gafernan/Desktop/Gnl/text", O_RDONLY);
+    while(ft_strlen != '0')
+
 	if (fd == -1)
 	{
-		printf("Error al abrir el archivo\n");
+		return(NULL);
 	}
 	else
 	{
-		nr_bytes = read(fd, buf, 5);
+		nr_bytes = read(fd, buf, 30);
+        close(fd);
 	}
-	return (0);
+    if(nr_bytes == 0)
+    {
+        printf("Archivo vacio");
+    }
+    else
+    {
+        printf("El numero de caracteres es: %d \nEl contenido es: %s \n", (int)nr_bytes, buf);
+    }
+	return 0;
 }

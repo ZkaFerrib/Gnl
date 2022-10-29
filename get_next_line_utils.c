@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gaizkafernandezribeiro <gaizkafernandez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 14:37:50 by gafernan          #+#    #+#             */
-/*   Updated: 2022/10/29 13:21:07 by gaizkaferna      ###   ########.fr       */
+/*   Created: 2022/10/28 15:36:36 by gaizkaferna       #+#    #+#             */
+/*   Updated: 2022/10/29 13:18:29 by gaizkaferna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include <stdio.h>
+#include <unistd.h>
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
+size_t ft_strlen(const char *str)
+{
+    size_t len;
 
-char *get_next_line(int fd);
-size_t ft_strlen(const char *str);
+    len = 0;
+    while(str[len])
+        len++;
+        return (len);
+}
 
-#endif
+int main(void)
+{
+    char    *src = "Bichaco";
+    printf("%zu", ft_strlen(src));
+	return (0);
+}
