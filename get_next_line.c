@@ -6,7 +6,7 @@
 /*   By: gaizkafernandezribeiro <gaizkafernandez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 13:51:55 by gafernan          #+#    #+#             */
-/*   Updated: 2022/10/29 13:19:24 by gaizkaferna      ###   ########.fr       */
+/*   Updated: 2022/10/29 14:36:51 by gaizkaferna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char *get_next_line(int fd)
 	char	buf[10];
 	ssize_t	nr_bytes;
 
+	fd = open("/Users/gaizkafernandezribeiro/Desktop/42/Gnl/Gnl/text.txt", O_RDONLY);
 	if (fd == -1)
 	{
 		return(NULL);
