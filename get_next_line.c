@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gaizkafernandezribeiro <gaizkafernandez    +#+  +:+       +#+        */
+/*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 13:51:55 by gafernan          #+#    #+#             */
-/*   Updated: 2022/10/29 14:36:51 by gaizkaferna      ###   ########.fr       */
+/*   Updated: 2022/11/08 12:57:22 by gafernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
+#include "get_next_line.h"
 
-char *get_next_line(int fd)
+/* char	*get_next_line(int fd)
 {
 	char	buf[10];
 	ssize_t	nr_bytes;
@@ -39,3 +37,5 @@ char *get_next_line(int fd)
     }
 	return 0;
 }
+
+ */
