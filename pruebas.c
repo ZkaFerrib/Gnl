@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pruebas.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaizkafernandezribeiro <gaizkafernandez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 13:51:55 by gafernan          #+#    #+#             */
-/*   Updated: 2022/11/08 14:58:04 by gafernan         ###   ########.fr       */
+/*   Updated: 2022/11/15 15:37:48 by gaizkaferna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,29 @@
 
 char	*ft_read(int fd)
 {
-	int		buf;
-	int		a;
-	ssize_t	nr_bytes;
+	char		*buf;
+	int		    a;
+	ssize_t	    nr_bytes;
+    int         i;
 
-	buf = ft_strlen(fd);
-	a = ft_strchr("\n", fd);
+    i = 0;
+
 	fd = open ("/Users/gafernan/Desktop/Gnl/Gnl/text", O_RDONLY);
 	if (fd == -1)
-		return (NULL);
-	else
-		nr_bytes = read (fd, buf, 5);
+		    return (NULL);
+	    else
+		    nr_bytes = read (fd, buf, 5);
+    while(buf[i] && buf[i] != '\n')
+    {
+	    if (nr_bytes == 0)
+		    printf ("Archivo vacio");
+	    else
+	    {
+		    printf ("El contenido %s \n", buf);
+	    }
+	    if (nr_bytes == a)
+		    return (0);
+        i++;
+    }
 	close(fd);
-	if (nr_bytes == 0)
-		printf ("Archivo vacio");
-	else
-	{
-		printf ("El contenido %s \n", buf);
-	}
-	if (nr_bytes == a)
-		return (0);
 }
