@@ -3,41 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gafernan <gafernan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gaizkafernandezribeiro <gaizkafernandez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 15:36:36 by gaizkaferna       #+#    #+#             */
-/*   Updated: 2022/11/08 14:37:33 by gafernan         ###   ########.fr       */
+/*   Updated: 2022/11/16 14:48:01 by gaizkaferna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(const char *str)
 {
-	size_t	length;
+	size_t	len;
 
-	length = 0;
-	while (s[length])
-			length++;
-	return (length);
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
 }
 
-/* int main(void)
+char	*ft_strchr(char *str, int c)
 {
-    char    *src = "Bichaco";
-    printf("%zu", ft_strlen(src));
-	return (0);
-} */
+	int		i;
 
-char	*ft_strchr(const char *s, int c)
-{
-	unsigned char	p;
-
-	p = c;
-	while (*s != '\0' && *s != p)
-		s++;
-	if (*s == p)
-		return ((char *)s);
+	i = 0;
+	if (!str)
+		return (NULL);
+	if (c == '\0')
+		return (&str[i]);
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (&str[i]);
+		i++;
+	}
 	return (NULL);
 }
 

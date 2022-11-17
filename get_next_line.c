@@ -6,76 +6,100 @@
 /*   By: gaizkafernandezribeiro <gaizkafernandez    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 13:51:55 by gafernan          #+#    #+#             */
-/*   Updated: 2022/11/16 14:18:56 by gaizkaferna      ###   ########.fr       */
+/*   Updated: 2022/11/16 14:35:08 by gaizkaferna      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int ft_bucle(int fd);
-
-int ft_leerfdl(const char *str);
-int	main(void)
+static char	*ft_cut_save(char *save)
 {
-	char	buf[10];
-	ssize_t	nr_bytes;
-    int     fd;
+	int		i;
+	int		j;
+	char	*temp;
 
-    nr_bytes = 0;
-	fd = open("/Users/gaizkafernandezribeiro/Desktop/42/Gnl/Gnl/text.txt", O_RDONLY);
-	if (fd == -1)
+	i = 0;
+	while (save[i] && save[i] != '\n')
+		i++;
+	if (!save[i])
 	{
-		return(0);
+		free(save);
+		return (NULL);
 	}
-	/* else
-	{
-		nr_bytes = read(fd, buf, BUFFER_SIZE);
-        close(fd);
-	}
-    if(nr_bytes == 0)
-    {
-        printf("Archivo vacio");
-    }
-    else
-    {
-        printf("El numero de caracteres es %d, El contenido es %s \n", (int)nr_bytes, buf);
-    }
-    printf("El numero de caracteres es %d", ft_leerfdl(buf)); */
-    printf("El numero de caracteres es %d\n", ft_bucle(fd));
-    close(fd);
-	return 0;
+	temp = (char *)malloc(sizeof(char) * (ft_strlen(save) - i + 1));
+	if (!temp)
+		return (NULL);
+	i++;
+	j = 0;
+	while (save[i])
+		temp[j++] = save[i++];
+	temp[j] = '\0';
+	free(save);
+	return (temp);
 }
 
-int ft_leerfdl(const char *str)
+static char	*ft_get_line(char *save)
 {
-    int     len;
-    
-    len = 0;
-    while(str[len] && str[len] !='\n')
-    {
-        write(1, &str[len], 1);
-        len++;
-    }
-    return(len);
+	int		i;
+	char	*temp;
+
+	i = 0;
+	if (!save[i])
+		return (NULL);
+	while (save[i] && save[i] != '\n')
+		i++;
+	temp = (char *)malloc(sizeof(char) * (i + 2));
+	if (!temp)
+		return (NULL);
+	i = -1;
+	while (save[++i] && save[i] != '\n')
+		temp[i] = save[i];
+	if (save[i] == '\n')
+	{
+		temp[i] = save[i];
+		i++;
+	}
+	temp[i] = '\0';
+	return (temp);
 }
 
-int ft_bucle(int fd)
+static char	*ft_read(int fd, char *save, char *buffer)
 {
-    int     nr_bytes;
-    char    *buffer;
-    int     len;
+	ssize_t	len;
 
-    len = 0;
-    buffer = malloc(sizeof (char) * BUFFER_SIZE);
-    nr_bytes = 1;
-    while(nr_bytes != 0)
-    {
-        nr_bytes = read(fd, buffer, BUFFER_SIZE);
-        
-        if (ft_leerfdl(buffer) != BUFFER_SIZE)
-            nr_bytes = 0;
-        //write(1, buffer, nr_bytes);
-        len += nr_bytes;
-    }
-    return(len);
+	len = 1;
+	while (len > 0)
+	{
+		len = read(fd, buffer, BUFFER_SIZE);
+		if (len == -1)
+		{
+			free(buffer);
+			return (NULL);
+		}
+		buffer[len] = '\0';
+		save = ft_strjoin(save, buffer);
+		if (ft_strchr(buffer, '\n'))
+			break ;
+	}
+	return (save);
+}
+
+char	*get_next_line(int fd)
+{
+	static char		*save[4096];
+	char			*line;
+	char			*buffer;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	save[fd] = ft_read(fd, save[fd], buffer);
+	if (!save[fd])
+		return (NULL);
+	line = ft_get_line(save[fd]);
+	save[fd] = ft_cut_save(save[fd]);
+	free(buffer);
+	return (line);
 }
